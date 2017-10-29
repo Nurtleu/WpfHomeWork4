@@ -19,35 +19,45 @@ namespace WpfHomeWorkFour
     /// </summary>
     public partial class Calculator : Window
     {
-        string Count;
-        int num;
-        bool resultCalculator = false;
-        string firstNumber = "";
-        string secondNumber = "";
-        string thirdNumber = "";
-        string showNumber = "";
+        private string Count;
+        private int num;
+        private bool resultCalculator = false;
+        private string firstNumber = "";
+        private string secondNumber = "";
+        private string showNumber = "";
 
         public Calculator()
         {
             InitializeComponent();
-           
+            List<string> styles = new List<string> { "dark", "white" };
+            colorComboBox.SelectionChanged += ThemeChange;
+            colorComboBox.ItemsSource = styles;
+            colorComboBox.SelectedItem = "Black";
+        }
+
+        private void ThemeChange(object sender, SelectionChangedEventArgs e)
+        {
+            string styleComboBox = colorComboBox.SelectedItem as string;
+            var color = new Uri(styleComboBox + ".xaml", UriKind.Relative);
+            ResourceDictionary resourceDict = Application.LoadComponent(color) as ResourceDictionary;
+            Application.Current.Resources.Clear();
+            Application.Current.Resources.MergedDictionaries.Add(resourceDict);
         }
 
         private void Number()
         {
-           int numFirst = Int32.Parse(firstNumber);
+            int numFirst = Int32.Parse(firstNumber);
             int numSecond = Int32.Parse(secondNumber);
-            int numThird = Int32.Parse(thirdNumber);
             switch (showNumber)
             {
                 case "+":
-                    thirdNumber = (numFirst + numSecond).ToString();
+                    secondNumber = (numFirst + numSecond).ToString();
                     break;
                 case "-":
-                    thirdNumber = (numFirst - numSecond).ToString();
+                    secondNumber = (numFirst - numSecond).ToString();
                     break;
                 case "*":
-                    thirdNumber = (numFirst * numSecond).ToString();
+                    secondNumber = (numFirst * numSecond).ToString();
                     break;
                 case "/":
                     secondNumber = (numFirst / numSecond).ToString();
@@ -74,7 +84,6 @@ namespace WpfHomeWorkFour
                 else
                 {
                     secondNumber += Count;
-                    thirdNumber += Count;
                 }
             }
 
@@ -83,7 +92,7 @@ namespace WpfHomeWorkFour
                 if (Count == "=")
                 {
                     Number();
-                    textBoxCount.Text += thirdNumber;
+                    textBoxCount.Text += secondNumber;
                     showNumber = "";
                 }
                 else
@@ -91,8 +100,8 @@ namespace WpfHomeWorkFour
                     if (secondNumber != "")
                     {
                         Number();
-                        firstNumber = thirdNumber;
-                        thirdNumber = "";
+                        firstNumber = secondNumber;
+                        secondNumber = "";
                     }
                     showNumber = Count;
                 }

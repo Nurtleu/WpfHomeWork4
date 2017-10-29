@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:WpfHomeWorkFour"
         mc:Ignorable="d"
         Title="Calculator" Height="348" Width="372.456">
+    <Window.Resources>
+        
+    </Window.Resources>
     <Grid x:Name="GridCalculator" Background="Gray" Margin="0,0,2,-2">
         <!--<UniformGrid Height="200" Width="252" HorizontalAlignment="Left" VerticalAlignment="Bottom">
             <Button FontSize="20" Click="ButtonCalculator_Click">1</Button>
@@ -44,5 +47,6 @@
             <Button x:Name="buttonNine" Margin="10,0,0,0" Width="50" Height="50" Click="ButtonCalculator_Click">9</Button>
             <Button x:Name="buttonZero" Margin="-105,0,0,0" Width="50" Height="50" Click="ButtonCalculator_Click">0</Button>
         </DockPanel>
+        <ComboBox x:Name="colorComboBox" HorizontalAlignment="Left" Margin="16,274,0,0" VerticalAlignment="Top" Width="190"/>
     </Grid>
 </Window>
